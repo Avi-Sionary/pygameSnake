@@ -16,6 +16,9 @@ else:
 playSurface = pygame.display.set_mode((720, 460))
 pygame.display.set_caption("Snake Game")
 
+# SFX
+blip = pygame.mixer.Sound("blip.wav")
+
 # Colors
 red = pygame.Color(255, 0, 0)
 green = pygame.Color(0, 255, 0)
@@ -31,7 +34,7 @@ snakePos = [100, 50]
 snakeBody = [[100, 50], [90, 50], [80, 50]] # the blocks "behind" the snake head
 
 # Food
-foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10] # Make it divisible by 10
+foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 30) * 10] # Make it divisible by 10
 foodSpawn = True
 
 # Movement
@@ -111,13 +114,14 @@ while True:
         snakeBody.insert(0, list(snakePos))
         if snakePos[0] == foodPos[0] and snakePos[1] == foodPos[1]:
             score += 1
+            pygame.mixer.Sound.play(blip)
             foodSpawn = False
         else:
             snakeBody.pop()
 
         # Position food
         if foodSpawn == False:
-            foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10]
+            foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 30) * 10]
         foodSpawn = True
 
         playSurface.fill(white)
